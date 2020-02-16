@@ -21,6 +21,7 @@ const (
 	QuicCmdLog
 	QuicCmdCalImu
 	QuicCmdBlackbox
+	QuicCmdDebugValue
 )
 
 const (
@@ -76,7 +77,8 @@ func (c *Controller) ReadQUIC() error {
 
 	if len(payload) != int(payloadLen) {
 		log.Debugf("% x (%s)", payload, string(payload))
-		log.Fatalf("<quic> invalid size (%d vs %d)", length, size)
+		log.Errorf("<quic> invalid size (%d vs %d)", length, size)
+		return errors.New("invalid quic packets size")
 	}
 
 	packet := QuicPacket{
@@ -90,7 +92,7 @@ func (c *Controller) ReadQUIC() error {
 	case QuicCmdLog:
 		val := new(string)
 		if err := cbor.Unmarshal(packet.Payload, val); err != nil {
-			log.Fatal(err)
+			return err
 		}
 		log.Debugf("<quic> log %s", *val)
 		QuicLog <- *val
@@ -98,9 +100,16 @@ func (c *Controller) ReadQUIC() error {
 	case QuicCmdBlackbox:
 		val := new(Blackbox)
 		if err := cbor.Unmarshal(packet.Payload, val); err != nil {
-			log.Fatal(err)
+			return err
 		}
 		QuicBlackbox <- *val
+		break
+	case QuicCmdDebugValue:
+		val := make([]float32, 0)
+		if err := cbor.Unmarshal(packet.Payload, &val); err != nil {
+			return err
+		}
+		log.Debugf("<quic> debug %+v", val)
 		break
 	default:
 		select {
