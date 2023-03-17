@@ -70,5 +70,5 @@ jobs:
         run: |
           git add .
           git commit -m "GitHub Pages $GITHUB_SHA" || exit 0
-          git remote set-url --push origin https://actions:$GITHUB_TOKEN@github.com/BossHobby/Configurator
+          git remote set-url --push origin https://actions:$GITHUB_TOKEN@github.com/sakitume/QUICKSILVER_Configurator
           git push -f
