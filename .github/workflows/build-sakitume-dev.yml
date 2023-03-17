@@ -49,6 +49,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: gh-pages
+          path: docs
 
       - name: update gh-pages
         run: |
