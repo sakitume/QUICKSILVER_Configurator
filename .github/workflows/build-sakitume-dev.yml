@@ -50,8 +50,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: gh-pages
+          path: develop
 
-      - name: update gh-pages
+      - name: update develop gh-pages
         run: |
           git add .
           git commit -m "GitHub Pages $GITHUB_SHA" || exit 0

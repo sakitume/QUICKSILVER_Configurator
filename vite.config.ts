@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
     process.env.DEPLOYMENT === "gh-pages" ||
     process.env.DEPLOYMENT === "local"
   ) {
-    if (branch == "develop") {
+    if (branch == "develop" || branch == "sakitume-dev") {
       base = "/develop/";
     } else {
       base = "/";
