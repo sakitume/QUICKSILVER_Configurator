@@ -16,9 +16,14 @@ if (process.env.NODE_ENV === "production") {
     process.env.DEPLOYMENT === "gh-pages" ||
     process.env.DEPLOYMENT === "local"
   ) {
-    if (branch == "develop" || branch == "sakitume-dev") {
+    if (branch == "develop") {
       base = "/develop/";
-    } else {
+    }
+    else if (branch == "sakitume-dev") {
+      // TODO: maybe use "doc" if workflow is configured to use that
+      base = "/";
+    }
+  } else {
       base = "/";
     }
   } else {
