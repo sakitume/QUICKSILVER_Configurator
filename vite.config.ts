@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
       base = "/develop/";
     } else if (branch == "sakitume-dev") {
       // TODO: maybe use "doc" if workflow is configured to use that
-      base = "/";
+      base = "/doc/";
     } else {
       base = "/";
     }
