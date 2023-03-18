@@ -18,6 +18,8 @@ if (process.env.NODE_ENV === "production") {
   ) {
     if (branch == "develop") {
       base = "/develop/";
+    } else if (branch == "sakitume-dev") {
+        base = "/QUICKSILVER_Configurator/";
     } else {
       base = "/";
     }
